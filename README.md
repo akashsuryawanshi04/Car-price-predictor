@@ -27,12 +27,12 @@ CarValue AI is an end-to-end machine learning project that:
 
 
 ### 🔐 Prediction 1
-![Prediction 1](Screenshots/login.jpg)
+![Prediction 1](Screenshots/1.jpg)
 
 ---
 
 ### 📊 Prediction 2
-![Prediction 2](Screenshots/Screenshot 2026-03-22 205147.jpg)
+![Prediction 2](Screenshots/2.jpg)
 
 ---
 
