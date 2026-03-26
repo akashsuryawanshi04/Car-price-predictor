@@ -23,7 +23,7 @@ CarValue AI is an end-to-end machine learning project that:
 
 ## 🖥️ Screenshots
 
-> *Dark terminal-gold aesthetic inspired by Bloomberg Terminal & Zerodha Kite*
+
 
 
 ### 🔐 Prediction 1
