@@ -124,7 +124,7 @@ car-price-predictor/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/car-price-predictor.git
+git clone https://github.com/akashsuryawanshi04/Car-price-predictor.git
 cd car-price-predictor
 ```
 
