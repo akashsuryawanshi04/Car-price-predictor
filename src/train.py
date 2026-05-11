@@ -1,9 +1,7 @@
 """
 train.py
 ========
-Trains a Linear Regression model on the Quikr Car dataset.
-Handles feature engineering, one-hot encoding, train/test split (0.2),
-and serialises the trained pipeline to ../model/car_price_model.pkl
+
 
 Author: Your Name
 """
