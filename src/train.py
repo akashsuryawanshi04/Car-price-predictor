@@ -1,4 +1,76 @@
+"""
+train.py
+========
+Trains a Linear Regression model on the Quikr Car dataset.
+Handles feature engineering, one-hot encoding, train/test split (0.2),
+and serialises the trained pipeline to ../model/car_price_model.pkl
 
+Author: Your Name
+"""
+
+import os
+import sys
+import json
+import joblib
+import numpy as np
+import pandas as pd
+import warnings
+warnings.filterwarnings("ignore")
+
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import (
+    mean_absolute_error,
+    mean_squared_error,
+    r2_score,
+)
+
+sys.path.insert(0, os.path.dirname(__file__))
+from preprocess import full_pipeline
+
+
+# ── Constants ─────────────────────────────────────────────────────────────────
+DATA_PATH  = os.path.join(os.path.dirname(__file__), "..", "data", "quikr_car.csv")
+MODEL_DIR  = os.path.join(os.path.dirname(__file__), "..", "model")
+MODEL_PATH = os.path.join(MODEL_DIR, "car_price_model.pkl")
+META_PATH  = os.path.join(MODEL_DIR, "model_meta.json")
+
+os.makedirs(MODEL_DIR, exist_ok=True)
+
+
+# ── Feature definitions ───────────────────────────────────────────────────────
+CAT_FEATURES = ["name", "company", "fuel_type"]
+NUM_FEATURES = ["year", "kms_driven"]
+TARGET       = "Price"
+
+
+def build_features(df: pd.DataFrame):
+    """Return X (features) and y (target) ready for the model."""
+    X = df[CAT_FEATURES + NUM_FEATURES]
+    y = df[TARGET]
+    return X, y
+
+
+def build_pipeline() -> Pipeline:
+    """
+    Build a scikit-learn Pipeline:
+      - OneHotEncoder  for categorical columns
+      - StandardScaler for numeric columns
+      - LinearRegression as estimator
+    """
+    preprocessor = ColumnTransformer(transformers=[
+        ("cat", OneHotEncoder(handle_unknown="ignore", sparse_output=False), CAT_FEATURES),
+        ("num", StandardScaler(), NUM_FEATURES),
+    ])
+
+    pipeline = Pipeline(steps=[
+        ("preprocessor", preprocessor),
+        ("model",        LinearRegression()),
+    ])
+    return pipeline
 
 
 def evaluate(model, X_test, y_test) -> dict:
